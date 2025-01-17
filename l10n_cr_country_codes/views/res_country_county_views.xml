@@ -38,7 +38,7 @@
     <record id="action_res_country_county" model="ir.actions.act_window">
         <field name="name">Counties</field>
         <field name="res_model">res.country.county</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- MENUITEM -->

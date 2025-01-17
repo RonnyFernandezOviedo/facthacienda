@@ -131,7 +131,7 @@ class AccountInvoiceElectronic(models.Model):
         string="Reference Document Type"
     )
     payment_methods_id = fields.Many2one(
-        comodel_name="payment.methods",
+        comodel_name="payment.method",
         string="Payment methods"
     )
     invoice_id = fields.Many2one(
@@ -209,7 +209,9 @@ class AccountInvoiceElectronic(models.Model):
     )
     invoice_amount_text = fields.Char(
         string='Amount in Letters',
+        compute='update_text_amount',
         readonly=True,
+        store=True,
         copy=False
     )
     state_email = fields.Selection(
@@ -226,7 +228,7 @@ class AccountInvoiceElectronic(models.Model):
         default=False
         )
     error_count = fields.Integer(
-        string="Number of errors",
+        string="Number errors", #Ronny
         default="0",
         copy=False
     )
@@ -302,7 +304,6 @@ class AccountInvoiceElectronic(models.Model):
     def _onchange_partner_id(self):
         super()._onchange_partner_id()
         self.payment_methods_id = self.partner_id.payment_methods_id
-
         if self.move_type in ('in_invoice', 'in_refund'):
             if self.partner_id:
                 self.economic_activities_ids = self.partner_id.economic_activities_ids
@@ -312,7 +313,7 @@ class AccountInvoiceElectronic(models.Model):
                 self.economic_activities_ids = []
         else:
             self.economic_activities_ids = self.env['economic.activity'].search([('active', '=', True)])
-            self.economic_activity_id = self.company_id.activity_id
+            self.economic_activity_id = self.partner_id.activity_id
 
         if self.partner_id and self.partner_id.export:
             self.tipo_documento = 'FEE'
@@ -511,11 +512,12 @@ class AccountInvoiceElectronic(models.Model):
             inv.send_mrs_to_hacienda()
 
     @api.model
-    def _check_hacienda_for_invoices(self, max_invoices=10):
+    def _check_hacienda_for_invoices(self, max_invoices=10): # cron...
         out_invoices = self.env['account.move'].search(
             [('move_type', 'in', ('out_invoice', 'out_refund')),
              ('state', '=', 'posted'),
-             ('state_tributacion', 'in', ('recibido', 'procesando', 'ne'))],  # , 'error'
+             ('state_tributacion', 'in', ('recibido', 'procesando', 'ne'))
+             ],  # , 'error'
             limit=max_invoices)
 
         in_invoices = self.env['account.move'].search(
@@ -666,7 +668,7 @@ class AccountInvoiceElectronic(models.Model):
                                body=_('Warning!.\n Error in _check_hacienda_for_invoices: ') + str(error))
                 continue
 
-    def send_mrs_to_hacienda(self):
+    def send_mrs_to_hacienda(self):   #cron... Revisa la respuesra de hacienda (aceptada-rechazada etc)
         for inv in self:
             if inv.xml_supplier_approval:
 
@@ -881,10 +883,12 @@ class AccountInvoiceElectronic(models.Model):
                                         _logger.error(
                                             _('E-INV CR - Unexpected error in Send Acceptance File - Aborting'))
                                         return
-
     @api.model
-    def _send_invoices_to_hacienda(self, max_invoices=10):  # cron
-        days_left = self.env.user.company_id.get_days_left()
+    def _send_invoices_to_hacienda(self, max_invoices=10):  # cron crea xlm y envia Fac ha hacienda
+        #days_left = self.env.company.get_days_left()
+        default2= self.env.user.company_ids[1]#ronny
+        days_left = default2.get_days_left()#Ronny
+
         _logger.debug('E-INV CR - Ejecutando _send_invoices_to_hacienda')
         invoices = self.env['account.move'].search([('move_type', 'in', ['out_invoice', 'out_refund']),
                                                     ('state', '=', 'posted'),
@@ -952,8 +956,11 @@ class AccountInvoiceElectronic(models.Model):
         total_invoices = len(invoices)
         current_invoice = 0
 
-        days_left = self.env.user.company_id.get_days_left()
-        message = self.env.user.company_id.get_message_to_send()
+        days_left = self.env.company.get_days_left()
+        default2= self.env.user.company_ids[1]#ronny
+        days_left = default2.get_days_left()#ronny
+        message = self.env.company.get_message_to_send()
+        message = default2.get_message_to_send()
         for inv in invoices:
             try:
                 current_invoice += 1
@@ -1054,7 +1061,7 @@ class AccountInvoiceElectronic(models.Model):
                         sale_conditions = '01'
 
                     # Validate if invoice currency is the same as the company currency
-                    if currency.name == self.company_id.currency_id.name:
+                    if currency.name == self.company_id.currency_id.name: #verificar por que no es igual Ronny
                         currency_rate = 1
                     else:
                         currency_rate = round(1.0 / currency.rate, 5)
@@ -1078,7 +1085,7 @@ class AccountInvoiceElectronic(models.Model):
                     base_subtotal = 0.0
                     _no_cabys_code = False
 
-                    for inv_line in inv.invoice_line_ids.filtered(lambda x: not x.display_type):
+                    for inv_line in inv.invoice_line_ids.filtered(lambda x:  x.display_type): #verificar error no itera con not
 
                         # Revisamos si está línea es de Otros Cargos
                         env_iva_devuelto = self.env.ref('cr_electronic_invoice.product_iva_devuelto').id
@@ -1275,14 +1282,14 @@ class AccountInvoiceElectronic(models.Model):
                     if inv.invoice_id and not inv.invoice_origin:
                         inv.invoice_origin = inv.invoice_id.display_name
 
-                    if _no_cabys_code and inv.tipo_documento != 'NC':  # CAByS is not required for financial NCs
+                    if _no_cabys_code and inv.tipo_documento != 'NC':  # CAByS is not required for financial NCs # no se genera Cabys Code verificar 
                         inv.state_tributacion = 'error'
                         inv.message_post(subject=_('Error'), body=_no_cabys_code)
                         continue
 
                     if abs(base_subtotal + total_impuestos +
                            total_otros_cargos - total_iva_devuelto - inv.amount_total) > 0.5:
-                        inv.state_tributacion = 'error'
+                        inv.state_tributacion = 'error' # Se genera erro verificar Ronny
                         inv.message_post(
                             subject=_('Error'),
                             body=_('Invoice amount does not match amount for XML. '
@@ -1680,7 +1687,7 @@ class AccountInvoiceElectronic(models.Model):
         if not lang:
             lang = get_lang(self.env).code
 
-        if self.env.user.company_id.frm_ws_ambiente == 'disabled':
+        if self.env.user.company_ids[1].frm_ws_ambiente == 'disabled': #ronny   #self.env.user.company_id.frm_ws_ambiente == 'disabled' ronny
             pass
         elif self.partner_id and self.partner_id.email:  # and not i.partner_id.opt_out:
 
@@ -1723,7 +1730,7 @@ class AccountInvoiceElectronic(models.Model):
         else:
             raise UserError(_('Partner is not assigne to this invoice'))
 
-        compose_form = self.env.ref('account.account_invoice_send_wizard_form', raise_if_not_found=False).sudo()
+        compose_form = self.env.ref('account.move_send_wizard', raise_if_not_found=False)#.sudo() . account.account_invoice_send_wizard_form
         ctx = dict(
             default_model='account.move',
             default_res_id=self.id,
@@ -1743,8 +1750,35 @@ class AccountInvoiceElectronic(models.Model):
             'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'account.invoice.send',
-            'views': [(compose_form.id, 'form')],
-            'view_id': compose_form.id,
+            #'views': [(compose_form.id, 'form')],ronny
+            #'view_id': compose_form.id,ronny
             'target': 'new',
             'context': ctx,
         }
+
+
+    def action_invoice_sent_funcional(self):
+        """ Open a window to compose an email, with the edi invoice template
+            message loaded by default
+        """
+        self.ensure_one()
+
+        report_action = self.action_send_and_print()
+        if self.env.is_admin() and not self.env.company.external_report_layout_id and not self.env.context.get('discard_logo_check'):
+            report_action = self.env['ir.actions.report']._action_configure_external_report_layout(report_action, "account.action_base_document_layout_configurator")
+            report_action['context']['default_from_invoice'] = self.move_type == 'out_invoice'
+
+        return report_action
+    
+    #def action_send_and_print_org_odoo(self):
+    #    return {
+    #        'name': _("Print & Send"),
+    #        'type': 'ir.actions.act_window',
+     #       'view_mode': 'form',
+      #      'res_model': 'account.move.send.wizard' if len(self) == 1 else 'account.move.send.batch.wizard',
+       #     'target': 'new',
+        #    'context': {
+         #       'active_model': 'account.move',
+          #      'active_ids': self.ids,
+  #          },
+   #     }

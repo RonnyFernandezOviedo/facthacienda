@@ -3,6 +3,7 @@ from odoo import models, fields
 
 class CodeTypeProduct(models.Model):
     _name = "code.type.product"
+    _description ='code.type.product'
 
     # ==============================================================================================
     #                                          PRODUCT TYPE

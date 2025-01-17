@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="account.report_invoice_document">
+    <template id="report_invoice_documentxx">
         <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)" />
             <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat"/>

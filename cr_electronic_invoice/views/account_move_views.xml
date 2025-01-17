@@ -37,9 +37,9 @@
                 <field name="invoice_amount_text" class="oe_inline" nolabel="1"/>
             </xpath>
 
-            <field name="partner_id" position="after">
-                <field name="economic_activities_ids" invisible="1" readonly="1" options="{&quot;active_test&quot;: [(&quot;type&quot;,&quot;in&quot;, (&quot;in_invoice&quot;, &quot;in_refund&quot;))]}"/>
-                <field name="economic_activity_id" required="move_type in ('out_invoice', 'out_refund') or tipo_documento == 'FEC'" invisible="move_type not in ('out_invoice', 'out_refund') and tipo_documento != 'FEC'" domain="[('id', 'in', economic_activities_ids),]" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True, &quot;active_test&quot;: [(&quot;type&quot;,&quot;in&quot;, (&quot;in_invoice&quot;, &quot;in_refund&quot;))]}"/>
+            <field name="invoice_vendor_bill_id" position="after">
+                <field name="economic_activities_ids" invisible="1" readonly="1"/>
+                <field name="economic_activity_id" readonly="state != 'draft'" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')"/>
                 <field name="number_electronic" readonly="1" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')"/>
                 <field name="sequence" readonly="1" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')"/>
             </field>
@@ -54,33 +54,33 @@
                 <field name="payment_methods_id" readonly="state != 'draft'" invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')" required="move_type in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')"/>
             </field>
 
-           <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='name']" position="after">
+           <xpath expr="//field[@name='invoice_line_ids']//list//field[@name='name']" position="after">
                 <field name="categ_name" invisible="1" readonly="1"/>
                 <field name="product_code" invisible="1" readonly="1"/>
                 <field name="third_party_id" invisible="product_code != '04'" optional="hide"/>
             </xpath>
             <!-- Move views -->
-            <xpath expr="//field[@name='line_ids']//tree//field[@name='name']" position="after">
+            <xpath expr="//field[@name='line_ids']//list//field[@name='name']" position="after">
                 <field name="categ_name" invisible="1" readonly="1"/>
                 <field name="product_code" invisible="1" readonly="1"/>
                 <field name="third_party_id" invisible="product_code != '04'" optional="hide"/>
             </xpath>
 
-            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']" position="after">
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name= 'discount']" position="after">
                 <field name="discount_note" optional="hide"/>
                 <field name="tariff_head" optional="hide"/>
             </xpath>
             <!-- Move views -->
-            <xpath expr="//field[@name='line_ids']//tree//field[@name='discount']" position="after">
+            <xpath expr="//field[@name='line_ids']/list/field[@name='discount_amount_currency']" position="after">
                 <field name="discount_note" optional="hide"/>
                 <field name="tariff_head" optional="hide"/>
             </xpath>
 
-            <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+             <!--<xpath expr="//button[@name='action_invoice_sent']" position="attributes">
                 <attribute name="invisible">False</attribute>
-            </xpath>
+            </xpath>     ronny boton duplicado-->
 
-            <xpath expr="(//field[@name='tax_totals_json'])[last()]" position="after">
+            <xpath expr="//page[@id='invoice_tab']//group//field[@name='tax_totals']" position="after">
                 <field name="amount_tax_electronic_invoice" invisible="move_type in ('out_invoice', 'out_refund')"/>
                 <field name="amount_total_electronic_invoice" invisible="move_type in ('out_invoice', 'out_refund')"/>
             </xpath>
@@ -123,12 +123,12 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="decoration-danger">
                     state_tributacion == 'rechazado'
                 </attribute>
-            </tree>
-            <field name="state" position="before">
+            </list>
+            <field name="status_in_payment" position="before">
                 <field name="tipo_documento" string="Doc Elect." optional="show"/>
                 <field name="sequence" string="Consecutive" optional="show"/>
                 <field name="move_type" invisible="1" readonly="1" optional="show"/>

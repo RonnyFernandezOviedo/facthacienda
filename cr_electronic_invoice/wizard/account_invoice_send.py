@@ -3,7 +3,8 @@ from odoo.tools.misc import get_lang
 
 
 class AccountInvoiceSend(models.TransientModel):
-    _inherit = 'account.invoice.send'
+    _name = 'account.invoice.send'
+    _description ='account.invoice.send'
 
     # -------------------------------------------------------------------------
     # PUBLIC ACTIONS

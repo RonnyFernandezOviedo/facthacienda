@@ -12,6 +12,9 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa 0%</field>
         <field name="iva_tax_code">01</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
+
     </record>
 
     <record id="iva_tax_00" model="account.tax">
@@ -24,6 +27,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa 0%</field>
         <field name="iva_tax_code">01</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_00_ND" model="account.tax">
@@ -37,6 +42,8 @@
         <field name="iva_tax_code">01</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_01" model="account.tax">
@@ -49,6 +56,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa General 13%</field>
         <field name="iva_tax_code">08</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_02" model="account.tax">
@@ -61,6 +70,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa General 13%</field>
         <field name="iva_tax_code">08</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_02_ND" model="account.tax">
@@ -74,6 +85,8 @@
         <field name="iva_tax_code">08</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_03" model="account.tax">
@@ -86,6 +99,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 1%</field>
         <field name="iva_tax_code">02</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_04" model="account.tax">
@@ -98,6 +113,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 1%</field>
         <field name="iva_tax_code">02</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_04_ND" model="account.tax">
@@ -111,6 +128,8 @@
         <field name="iva_tax_code">02</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_05" model="account.tax">
@@ -123,6 +142,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 2%</field>
         <field name="iva_tax_code">03</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_06" model="account.tax">
@@ -135,6 +156,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 2%</field>
         <field name="iva_tax_code">03</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_06_ND" model="account.tax">
@@ -148,6 +171,8 @@
         <field name="iva_tax_code">03</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_07" model="account.tax">
@@ -160,6 +185,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 4%</field>
         <field name="iva_tax_code">04</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_08" model="account.tax">
@@ -172,6 +199,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Tarifa reducida 4%</field>
         <field name="iva_tax_code">04</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_08_ND" model="account.tax">
@@ -185,6 +214,8 @@
         <field name="iva_tax_code">04</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_09" model="account.tax">
@@ -197,6 +228,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 0%</field>
         <field name="iva_tax_code">05</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_10" model="account.tax">
@@ -209,6 +242,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 0%</field>
         <field name="iva_tax_code">05</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_10_ND" model="account.tax">
@@ -222,6 +257,8 @@
         <field name="iva_tax_code">05</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_11" model="account.tax">
@@ -234,6 +271,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 4%</field>
         <field name="iva_tax_code">06</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_12" model="account.tax">
@@ -246,6 +285,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 4%</field>
         <field name="iva_tax_code">06</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_12_ND" model="account.tax">
@@ -259,6 +300,8 @@
         <field name="iva_tax_code">06</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_13" model="account.tax">
@@ -271,6 +314,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 8%</field>
         <field name="iva_tax_code">07</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_14" model="account.tax">
@@ -283,6 +328,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Transitorio 8%</field>
         <field name="iva_tax_code">07</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_14_ND" model="account.tax">
@@ -296,6 +343,8 @@
         <field name="iva_tax_code">07</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_15" model="account.tax">
@@ -308,6 +357,8 @@
         <field name="sequence">5</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_16" model="account.tax">
@@ -320,6 +371,8 @@
         <field name="sequence">5</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_16_ND" model="account.tax">
@@ -333,6 +386,8 @@
         <field name="iva_tax_code">N/A</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_17" model="account.tax">
@@ -345,6 +400,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_18" model="account.tax">
@@ -357,6 +414,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_19" model="account.tax">
@@ -369,6 +428,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_20" 
@@ -382,6 +443,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_21" model="account.tax">
@@ -394,6 +457,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_22" model="account.tax">
@@ -406,6 +471,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_23" model="account.tax">
@@ -418,6 +485,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_24" model="account.tax">
@@ -430,6 +499,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_25" model="account.tax">
@@ -442,6 +513,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_26" model="account.tax">
@@ -454,6 +527,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_26_ND" model="account.tax">
@@ -467,6 +542,8 @@
         <field name="iva_tax_code">N/A</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_27" model="account.tax">
@@ -479,6 +556,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_28" model="account.tax">
@@ -491,6 +570,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_28_ND" model="account.tax">
@@ -504,6 +585,8 @@
         <field name="iva_tax_code">N/A</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_29" model="account.tax">
@@ -515,6 +598,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_30" model="account.tax">
@@ -526,6 +611,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_31" model="account.tax">
@@ -537,6 +624,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_32" model="account.tax">
@@ -548,6 +637,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="iva_tax_32_ND" model="account.tax">
@@ -561,6 +652,8 @@
         <field name="iva_tax_code">N/A</field>
         <field name="tax_group_id" ref="cr_electronic_invoice.tax_group_IVA_ND"/>
         <field name="non_tax_deductible">True</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="service_tax_sale" model="account.tax">
@@ -573,6 +666,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">Impuesto Servicio 10%</field>
         <field name="iva_tax_code">06</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="exempt_tax_sale" model="account.tax">
@@ -585,6 +680,8 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 
     <record id="exempt_tax_purchase" model="account.tax">
@@ -597,5 +694,7 @@
         <field name="sequence">10</field>
         <field name="iva_tax_desc">N/A</field>
         <field name="iva_tax_code">N/A</field>
+        <field name="country_id" ref="base.cr"/>
+        <field name="company_id" search="[('chart_template','=','cr'),]" model="res.company" />
     </record>
 </odoo>

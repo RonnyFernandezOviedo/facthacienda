@@ -6,6 +6,7 @@ from xml.sax.saxutils import escape
 
 class InvoiceLineElectronic(models.Model):
     _inherit = "account.move.line"
+    _description = 'account.move.line'
 
     # ==============================================================================================
     #                                          INVOICE LINE

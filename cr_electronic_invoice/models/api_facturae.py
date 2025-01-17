@@ -181,9 +181,9 @@ def get_token_hacienda(inv, tipo_ambiente):
     global last_tokens_expire
     global last_tokens_refresh
 
-    token = last_tokens.get(inv.company_id.id, False)
-    token_time = last_tokens_time.get(inv.company_id.id, False)
-    token_expire = last_tokens_expire.get(inv.company_id.id, 0)
+    token = last_tokens.get(inv.env.user.company_ids[1],False)  #(inv.company_id.id, False)ronny
+    token_time = last_tokens_time.get(inv.env.user.company_ids[1],False)#(inv.company_id.id, False)ronny
+    token_expire = last_tokens_expire.get(inv.env.user.company_ids[1], 0)#(inv.company_id.id, False)ronny
     current_time = time.time()
 
     if token and (current_time - token_time < token_expire - 10):
@@ -193,8 +193,8 @@ def get_token_hacienda(inv, tipo_ambiente):
         data = {'client_id': tipo_ambiente,
                 'client_secret': '',
                 'grant_type': 'password',
-                'username': inv.company_id.frm_ws_identificador,
-                'password': inv.company_id.frm_ws_password}
+                'username': inv.env.user.company_ids[1].frm_ws_identificador,#ronny inv.env.company.frm_ws_identificador
+                'password': inv.env.user.company_ids[1].frm_ws_password}#ronny inv.env.company.frm_ws_password
 
         # establecer el ambiente al cual me voy a conectar
         endpoint = fe_enums.UrlHaciendaToken[tipo_ambiente]
@@ -210,10 +210,10 @@ def get_token_hacienda(inv, tipo_ambiente):
 
             if 200 <= response.status_code <= 299:
                 token_hacienda = response_json.get('access_token')
-                last_tokens[inv.company_id.id] = token
-                last_tokens_time[inv.company_id.id] = time.time()
-                last_tokens_expire[inv.company_id.id] = response_json.get('expires_in')
-                last_tokens_refresh[inv.company_id.id] = response_json.get('refresh_expires_in')
+                last_tokens[inv.env.user.company_ids[1].id] = token
+                last_tokens_time[inv.env.user.company_ids[1].id] = time.time()#inv.company_id.id ronny
+                last_tokens_expire[inv.env.user.company_ids[1].id] = response_json.get('expires_in')#inv.company_id.id ronny
+                last_tokens_refresh[inv.env.user.company_ids[1].id] = response_json.get('refresh_expires_in')#inv.company_id.id ronny
             else:
                 _logger.error('FECR - token_hacienda failed.  error: %s' % (response.status_code))
 
@@ -349,6 +349,7 @@ def gen_xml_v43(inv, sale_conditions, total_servicio_gravado,
 
     numero_linea = 0
     payment_methods_id = []
+    payment= []
 
     if inv._name == 'pos.order':
         plazo_credito = '0'
@@ -358,12 +359,19 @@ def gen_xml_v43(inv, sale_conditions, total_servicio_gravado,
                 payment_methods_id.append('01')
             else:
                 # Se agrega el campo code en los métodos de pago de Odoo POS
-                payment_methods_id.append(str(payment.payment_method_id.sequence))
+                payment.append(str(inv.payment_methods_id.sequence))
+                for pay in payment:
+                    number_strg = pay.zfill(2)
+                    payment_methods_id.append(number_strg)
         cod_moneda = str(inv.company_id.currency_id.name)
         invoice_ref = False
     else:
-        payment_methods_id.append(str(inv.payment_methods_id.sequence))
-        plazo_credito = str(inv.invoice_payment_term_id and inv.invoice_payment_term_id.line_ids[0].days or 0)
+        payment.append(str(inv.payment_methods_id.sequence))
+        for pay in payment:
+            number_strg = pay.zfill(2)
+            payment_methods_id.append(number_strg)
+
+        plazo_credito = str(inv.invoice_payment_term_id and  0)#errro al convetir a string ronny (inv.invoice_payment_term_id and inv.invoice_payment_term_id.line_ids[0].days or 0)
         cod_moneda = str(inv.currency_id.name)
         invoice_ref = inv.ref
 

@@ -22,10 +22,11 @@ class PartnerElectronic(models.Model):
 
     commercial_name = fields.Char()
     identification_id = fields.Many2one(
-        comodel_name="identification.type"
+        comodel_name="identification.type",
+        string="Identification Type"
     )
     payment_methods_id = fields.Many2one(
-        comodel_name="payment.methods",
+        comodel_name="payment.method",
         string="Payment Method"
     )
     export = fields.Boolean(

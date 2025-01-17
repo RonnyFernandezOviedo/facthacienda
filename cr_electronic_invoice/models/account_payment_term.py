@@ -9,5 +9,6 @@ class AccountPaymentTerm(models.Model):
     # ==============================================================================================
 
     sale_conditions_id = fields.Many2one(
-        comodel_name="sale.conditions"
+        comodel_name="sale.conditions",
+        string= "Sales Condition"
     )

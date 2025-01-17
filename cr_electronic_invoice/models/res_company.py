@@ -58,7 +58,7 @@ class CompanyElectronic(models.Model):
         string='Users'
     )
     to_emails = fields.Char(
-        string='Email'
+        string='Email to'
     )
 
     identification_id = fields.Many2one(
@@ -240,7 +240,8 @@ class CompanyElectronic(models.Model):
     # BUSINESS METHODS
     # -------------------------------------------------------------------------
 
-    @api.model
+    #@api.model
+    @api.model_create_multi #add Ronny
     def create(self, vals):
         """ Try to automatically add the Comprobante Confirmation sequence to the company.
             It will attempt to create and assign before storing. The sequence that is

@@ -3,6 +3,7 @@ from odoo import models, fields
 
 class Resolution(models.Model):
     _name = "resolution"
+    _description ='resolution'
 
     active = fields.Boolean(
         help='Set active or inactive DGT resolutions.'

@@ -24,7 +24,7 @@ class ResCurrencyRate(models.Model):
     original_rate = fields.Float(
         string='Selling Rate in Costa Rica',
         digits=0,
-        group_operator="avg",
+        aggregator="avg",
         help='The selling exchange rate from CRC to USD as it is send from BCCR')
 
     # ==============================================================================================
@@ -33,14 +33,14 @@ class ResCurrencyRate(models.Model):
 
     rate_2 = fields.Float(
         digits='Currency Rate Precision',
-        group_operator="avg",
+        aggregator="avg",
         help='The buying rate of the currency to the currency of rate 1.')
 
     original_rate_2 = fields.Float(
         digits=0,
         compute="_compute_original_rate_2",
         inverse="_inverse_original_rate_2",
-        group_operator="avg",
+        aggregator="avg",
         help='The buying exchange rate from CRC to USD as it is send from BCCR')
 
     inverse_original_rate_2 = fields.Float(
@@ -48,9 +48,8 @@ class ResCurrencyRate(models.Model):
         string='Technical Rate - Buy',
         compute="_compute_inverse_original_rate_2",
         inverse="_inverse_inverse_original_rate_2",
-        group_operator="avg",
-        help="The rate of the currency to the currency of rate 1 ",
-    )
+        aggregator="avg",
+        help="The rate of the currency to the currency of rate 1 ",)
 
     # -------------------------------------------------------------------------
     # HELPER METHODS

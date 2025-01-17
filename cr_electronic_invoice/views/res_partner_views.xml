@@ -8,12 +8,12 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
 
-            <field name="property_payment_term_id" position="after">
-                <field name="payment_methods_id" groups="account.group_account_invoice"/>
-            </field>
-
             <field name="vat" position="after">
-                <field name="identification_id"/>
+                <field name="property_payment_term_id" groups="account.group_account_invoice" string="Termino de Pago"/>
+            </field>
+            
+            <field name="vat" position="before">
+                <field name="identification_id" string="Tipo de identificacion"/>
                 <field name="supplier_rank" invisible="1" readonly="1"/>
             </field>
 
@@ -22,12 +22,12 @@
                     <separator colspan="7"/>
                     <field name="activity_id" domain="[('id', 'in', economic_activities_ids)]" options="{&quot;no_create&quot;: True, &quot;active_test&quot;: False}" colspan="5"/>
                     <button name="action_get_economic_activities" type="object" string="Consultar Actividad Economica en Hacienda" colspan="2"/>
-                    <field name="economic_activities_ids" readonly="0" widget="section_and_note_one2many" mode="tree" context="{'partner_id': id}" colspan="7">
-                        <tree editable="bottom">
+                    <field name="economic_activities_ids" readonly="0" widget="section_and_note_one2many" mode="list" context="{'partner_id': id}" colspan="7">
+                        <list editable="bottom">
                             <field name="code"/>
                             <field name="name"/>
                             <field name="sale_type"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </xpath>

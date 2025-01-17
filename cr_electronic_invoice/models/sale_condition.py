@@ -3,6 +3,7 @@ from odoo import models, fields
 
 class SaleConditions(models.Model):
     _name = "sale.conditions"
+    _description ='sale.conditions'
 
     active = fields.Boolean(
         default=True
